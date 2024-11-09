@@ -1,0 +1,56 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+    <section class="login-block">
+        <div class="container">
+            <div class="row">
+                <div class="col login-sec">
+                    <h2 class="text-center">Login Now</h2>
+                    <form method="POST" action="{% url 'login' %}" class="login-form">
+                        {% csrf_token %}
+                        
+                        <div class="form-group">
+                            <label for="username" class="text-uppercase">Username</label>
+                            <input type="text" name="username" class="form-control" placeholder="username" required>
+                        </div>
+                        
+
+                        <div class="form-group">
+                            <label for="password" class="text-uppercase">Password</label>
+                            <input type="password" name="password" class="form-control" placeholder="password" required>
+                            {% if errors.password %}
+                                <span class="text-danger">Password is required.</span>
+                            {% endif %}
+                        </div>
+
+                        <div class="form-group">
+                            {% if loading %}
+                                <div class="text-center">
+                                    <div class="spinner-border text-primary" role="status">
+                                        <span class="sr-only">Loading...</span>
+                                    </div>
+                                </div>
+                            {% endif %}
+                            
+                            <input type="submit" class="btn btn-login float-right" value="Login">
+                        </div>
+
+                        <div class="clearfix"></div>
+
+                        <div class="form-group">
+                            Create a new account? Please <a href="{% url 'signUp' %}">sign up</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
